@@ -1,0 +1,312 @@
+
+@import "tailwindcss";
+
+/* ============================================================================
+   CivilGenius v20 — Design tokens (LIGHT theme, navy + gold + green accents)
+   ========================================================================== */
+@theme {
+  /* surfaces — clean, faintly green-tinted light theme */
+  --color-bg: #f4f7f5;
+  --color-panel: #ffffff;
+  --color-panel-2: #fafcfa;
+  --color-line: #e3e9e5;
+  --color-line-2: #d5ddd7;
+
+  /* text */
+  --color-ink: #0d211d;
+  --color-muted: #5b6f68;
+  --color-faint: #93a49c;
+
+  /* brand dark — deep pine green with navy contrast for borders */
+  --color-navy: #0e3a34;
+  --color-navy-2: #14544a;
+  --color-navy-soft: #e4f1ec;
+
+  /* soft gold accents */
+  --color-gold: #c9a227;
+  --color-gold-2: #a9861d;
+  --color-gold-soft: #f8f1dc;
+
+  /* chic emerald / forest green family (primary identity) */
+  --color-forest: #0f5257;
+  --color-emerald: #10b981;
+  --color-emerald-2: #059669;
+  --color-mint: #a7f3d0;
+  --color-emerald-soft: #e7f6ef;
+
+  /* status */
+  --color-ok: #0f9d6c;
+  --color-bad: #d92d20;
+  --color-bad-soft: #fef3f2;
+  --color-blue: #2563eb;
+  --color-blue-soft: #eff4ff;
+  --color-sky: #0284c7;
+  --color-warn: #b54708;
+  --color-warn-soft: #fffaeb;
+
+  --font-sans: "Vazirmatn", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Space Grotesk", ui-monospace, "SFMono-Regular", monospace;
+
+  --radius-card: 18px;
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------------- */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overscroll-behavior-y: none;
+  }
+  ::selection {
+    background: #059669;
+    color: #fff;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d9dde5;
+    border-radius: 999px;
+    border: 3px solid var(--color-bg);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b9c0cd;
+  }
+  /* Latin numerals must never inherit Persian glyphs inside mono blocks */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Components / utilities
+   ------------------------------------------------------------------------- */
+@utility glass {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  box-shadow:
+    0 1px 2px rgba(16, 24, 40, 0.04),
+    0 8px 24px -16px rgba(16, 24, 40, 0.16);
+}
+
+@utility glass-strong {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line-2);
+  border-radius: var(--radius-card);
+  box-shadow:
+    0 1px 2px rgba(16, 24, 40, 0.06),
+    0 18px 40px -22px rgba(16, 24, 40, 0.28);
+}
+
+/* faint engineering blueprint grid */
+@utility bp-grid {
+  background-image:
+    linear-gradient(to left, rgba(15, 31, 61, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 31, 61, 0.055) 1px, transparent 1px),
+    linear-gradient(to left, rgba(15, 31, 61, 0.028) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 31, 61, 0.028) 1px, transparent 1px);
+  background-size:
+    96px 96px,
+    96px 96px,
+    16px 16px,
+    16px 16px;
+}
+
+@utility bp-grid-dark {
+  background-image:
+    linear-gradient(to left, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size:
+    28px 28px,
+    28px 28px;
+}
+
+@utility field-input {
+  width: 100%;
+  background: var(--color-panel-2);
+  border: 1px solid var(--color-line-2);
+  border-radius: 10px;
+  padding: 0.75rem 0.7rem;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  outline: none;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease,
+    background 140ms ease;
+}
+@utility field-input-focus {
+  border-color: var(--color-emerald);
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.14);
+  background: #fff;
+}
+
+/* sliders — gold track, green thumb on focus */
+@utility range-gold {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-gold) 0%, #f0d3a4 100%);
+  outline: none;
+}
+.range-gold::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--color-gold);
+  box-shadow: 0 1px 4px rgba(16, 24, 40, 0.25);
+  cursor: pointer;
+}
+.range-gold::-webkit-slider-thumb:hover {
+  border-color: var(--color-emerald);
+}
+.range-gold::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--color-gold);
+  cursor: pointer;
+}
+
+/* SVG chart animations */
+@utility chart-draw {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: cg-draw 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@utility chart-fade {
+  opacity: 0;
+  animation: cg-fade 0.9s ease 0.25s forwards;
+}
+
+@keyframes cg-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes cg-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ticker marquee */
+@utility marquee-track {
+  display: inline-flex;
+  animation: cg-marquee 42s linear infinite;
+}
+@keyframes cg-marquee {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* splash ring */
+@utility splash-ring {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent 0 55%, var(--color-emerald) 78%, var(--color-gold) 100%);
+  mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 0);
+  animation: cg-spin 1.05s linear infinite;
+}
+@keyframes cg-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* generic entrance */
+@utility rise {
+  animation: cg-rise 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes cg-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility pulse-soft {
+  animation: cg-pulse 2.4s ease-in-out infinite;
+}
+@keyframes cg-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+/* safe-area helpers for mobile bottom nav */
+@utility pb-safe {
+  padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* print: hide chrome so the app can print a report */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* round-31 — print only the calculation book from /report-generator */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+  .print-area {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: auto !important;
+  }
+  .print-area iframe {
+    height: 100vh;
+  }
+}
+
+
