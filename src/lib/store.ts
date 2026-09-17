@@ -224,3 +224,20 @@ export function buildSampleProject(): SampleProject {
 export const DEFAULT_MULTIPLIERS: Multipliers = { foundations: 1, beams: 12, columns: 16, slabs: 5, walls: 2, stairs: 2, joints: 16 };
 
 
+
+/* --------------------------------------------------------- staleness check --
+ * Phase 12 Wave-2: a stored result becomes stale the moment any of its input
+ * fields differs from the current inputs (union-of-keys, Object.is compare).
+ * No timers, no fake freshness — pure snapshot comparison.
+ * -------------------------------------------------------------------------- */
+export function isResultStale(result: CalcResult, currentInput: AnyInput | undefined): boolean {
+  if (!currentInput) return false;
+  const snap = result.input as unknown as Record<string, unknown>;
+  const cur = currentInput as unknown as Record<string, unknown>;
+  if (!snap || typeof snap !== 'object') return false;
+  const keys = new Set<string>([...Object.keys(snap), ...Object.keys(cur)]);
+  for (const k of keys) {
+    if (!Object.is(snap[k], cur[k])) return true;
+  }
+  return false;
+}

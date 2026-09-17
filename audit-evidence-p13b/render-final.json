@@ -1,0 +1,25 @@
+{
+  "route.dashboard": "PASS",
+  "route.market": "PASS",
+  "route.foundation": "PASS",
+  "route.beam": "PASS",
+  "route.column": "PASS",
+  "route.slab": "PASS",
+  "route.shear-wall": "PASS",
+  "route.staircase": "PASS",
+  "route.ramp": "PASS",
+  "route.joint": "PASS",
+  "route.report-generator": "PASS",
+  "route.management": "PASS",
+  "route.advisor": "PASS",
+  "sidebar.nav-items-13": "PASS",
+  "sidebar.has-management": "PASS",
+  "copy.honest-8module": "PASS",
+  "copy.last-query": "PASS",
+  "hero.no-img": "PASS",
+  "hero.bp-grid": "PASS",
+  "summary": {
+    "pass": 19,
+    "fail": 0
+  }
+}

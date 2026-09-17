@@ -16,6 +16,8 @@
  * NOTE: `saveFile` no longer exists. Use downloadBlobDirect() / shareFileMobile().
  * ========================================================================== */
 
+import { APP_NAME, APP_VERSION } from './version';
+
 export interface VaultDoc {
   id: string;
   name: string;
@@ -108,7 +110,7 @@ export async function shareFileMobile(blob: Blob, name: string, title?: string):
     if (typeof File === 'undefined' || !nav.canShare || !nav.share) return false;
     const file = new File([blob], name, { type: blob.type });
     if (!nav.canShare({ files: [file] })) return false;
-    await nav.share({ files: [file], title: title ?? name, text: 'خروجی CivilGenius v21' });
+    await nav.share({ files: [file], title: title ?? name, text: `خروجی ${APP_NAME} ${APP_VERSION}` });
     return true;
   } catch {
     return false; // user cancelled or unsupported

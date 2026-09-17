@@ -61,7 +61,7 @@ export function Chip({
     warn: 'bg-warn-soft text-warn border-[#fde68a]',
     bad: 'bg-bad-soft text-bad border-[#fecdca]',
     info: 'bg-blue-soft text-blue border-[#d1e0ff]',
-    gold: 'bg-gold-soft text-gold-2 border-[#f6dfb6]',
+    gold: 'bg-gold-soft text-gold-deep border-[#f6dfb6]',
     green: 'bg-forest text-white border-forest',
   };
   return (
@@ -235,8 +235,8 @@ export function Button({
 }): ReactNode {
   const variants: Record<string, string> = {
     primary: 'bg-navy text-white hover:bg-navy-2 shadow-sm',
-    green: 'bg-emerald text-white hover:bg-forest shadow-sm',
-    gold: 'bg-gold text-white hover:bg-gold-2 shadow-sm',
+    green: 'bg-emerald-deep text-white hover:bg-forest shadow-sm',
+    gold: 'bg-gold text-navy hover:brightness-110 shadow-sm',
     ghost: 'bg-transparent text-muted hover:bg-panel-2',
     outline: 'border border-line-2 bg-panel text-ink hover:border-navy hover:text-navy',
     danger: 'bg-bad text-white hover:bg-[#b42318] shadow-sm',

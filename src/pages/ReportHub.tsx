@@ -13,6 +13,7 @@ import { CALC_META, type CalcResult, type CalcType } from '../lib/engine';
 import { faNum, jalaliDate, jalaliNumSlug } from '../lib/format';
 import { useStore } from '../lib/store';
 import { Button, Card, Chip, SectionHead } from '../components/ui';
+import { APP_NAME, APP_VERSION } from '../lib/version';
 
 const ORDER: CalcType[] = ['foundation', 'beam', 'column', 'slab', 'wall', 'stair', 'ramp', 'joint'];
 
@@ -91,7 +92,7 @@ export function buildReportHtml(cfg: HubConfig, results: Partial<Record<CalcType
 </header>
 <h2>فهرست مطالب</h2><ol>${ORDER.filter((t) => results[t]).map((t) => `<li>فصل ${esc(CALC_META[t].title)} — کد ${esc(results[t]!.code)}</li>`).join('')}</ol>
 ${secs || '<p>هنوز محاسبه‌ای انجام نشده است — از ماژول‌های طراحی، خروجی بگیرید.</p>'}
-<footer class="meta" style="margin-top:24px;border-top:1px solid #d5dbe3;padding-top:8px">تولید: CivilGenius v23 — ${n} فصل — این دفترچه جنبه محاسباتی دارد و ممیزی نهایی با مهندس مهرشده است.</footer>
+<footer class="meta" style="margin-top:24px;border-top:1px solid #d5dbe3;padding-top:8px">تولید: ${APP_NAME} ${APP_VERSION} — ${n} فصل — این دفترچه جنبه محاسباتی دارد و ممیزی نهایی با مهندس مهرشده است.</footer>
 </body></html>`;
 }
 
@@ -152,13 +153,13 @@ export function ReportHubPage(): ReactNode {
         <div className="flex gap-1">
           <button
             onClick={() => setTab('preview')}
-            className={`rounded-lg px-3 py-2 text-[12px] font-bold transition ${tab === 'preview' ? 'bg-emerald text-white' : 'text-muted hover:text-ink'}`}
+            className={`rounded-lg px-3 py-2 text-[12px] font-bold transition ${tab === 'preview' ? 'bg-emerald-deep text-white' : 'text-muted hover:text-ink'}`}
           >
             پیش‌نمایش دفترچه
           </button>
           <button
             onClick={() => setTab('settings')}
-            className={`rounded-lg px-3 py-2 text-[12px] font-bold transition ${tab === 'settings' ? 'bg-emerald text-white' : 'text-muted hover:text-ink'}`}
+            className={`rounded-lg px-3 py-2 text-[12px] font-bold transition ${tab === 'settings' ? 'bg-emerald-deep text-white' : 'text-muted hover:text-ink'}`}
           >
             سربرگ و لوگو
           </button>

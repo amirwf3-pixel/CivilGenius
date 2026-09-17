@@ -15,7 +15,7 @@
   /* text */
   --color-ink: #0d211d;
   --color-muted: #5b6f68;
-  --color-faint: #93a49c;
+  --color-faint: #64756d; /* Wave-B VQA-03: AA-legible secondary text (was #93a49c) */
 
   /* brand dark — deep pine green with navy contrast for borders */
   --color-navy: #0e3a34;
@@ -25,18 +25,20 @@
   /* soft gold accents */
   --color-gold: #c9a227;
   --color-gold-2: #a9861d;
+  --color-gold-deep: #806515; /* Wave-B VQA-04: AA gold for text on gold-soft (chips) */
   --color-gold-soft: #f8f1dc;
 
   /* chic emerald / forest green family (primary identity) */
   --color-forest: #0f5257;
   --color-emerald: #10b981;
   --color-emerald-2: #059669;
+  --color-emerald-deep: #047857; /* Wave-B VQA-01: AA green fill for white-text buttons/tabs */
   --color-mint: #a7f3d0;
   --color-emerald-soft: #e7f6ef;
 
   /* status */
   --color-ok: #0f9d6c;
-  --color-bad: #d92d20;
+  --color-bad: #cc2a1e; /* Wave-B VQA-05: clears AA on bad-soft (was #d92d20) */
   --color-bad-soft: #fef3f2;
   --color-blue: #2563eb;
   --color-blue-soft: #eff4ff;

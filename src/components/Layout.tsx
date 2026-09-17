@@ -5,8 +5,9 @@
  * ========================================================================== */
 
 import { useEffect, useState, type ReactNode } from 'react';
-import { Bot, Building2, Columns3, Combine, FileStack, Footprints, Layers, LayoutDashboard, Link2, MoveUpRight, Ruler, TrendingUp, TriangleAlert, Waves, X } from 'lucide-react';
+import { Bot, Building2, Columns3, Combine, FileStack, Footprints, GanttChart, Layers, LayoutDashboard, Link2, MoveUpRight, Ruler, TrendingUp, TriangleAlert, Waves, X } from 'lucide-react';
 import { faAgo, faNum } from '../lib/format';
+import { APP_NAME, APP_VERSION_FA } from '../lib/version';
 import { market, useClock, useMarket } from '../lib/market';
 import { refreshLivePrices } from '../lib/livePrices';
 import { useStore } from '../lib/store';
@@ -31,6 +32,7 @@ export const NAV: NavItem[] = [
   { route: 'ramp', label: 'رمپ', short: 'رمپ', icon: <MoveUpRight size={18} /> },
   { route: 'joint', label: 'چشمه اتصال', short: 'چشمه', icon: <Combine size={18} /> },
   { route: 'report-generator', label: 'هاب دفترچه محاسبات', short: 'دفترچه', icon: <FileStack size={18} /> },
+  { route: 'management', label: 'اتاق فرمان پروژه', short: 'فرمان', icon: <GanttChart size={18} /> },
   { route: 'advisor', label: 'مشاور آیین‌نامه', short: 'مشاور', icon: <Bot size={18} /> },
 ];
 
@@ -66,7 +68,7 @@ export function SourceCard({ compact = false }: { compact?: boolean }): ReactNod
       <p className="mt-1.5 text-[11px] leading-5 text-muted">
         {status === 'error'
           ? 'استفاده از نرخ مبنای مصوب (آفلاین)'
-          : snap.fetch.message || 'برای دریافت قیمت لحظه‌ای فولاد، استعلام را اجرا کنید.'}
+          : snap.fetch.message || 'برای دریافت آخرین قیمت فولاد از منبع، استعلام را اجرا کنید.'}
       </p>
       <div className="mt-2 flex items-center justify-between text-[10.5px] text-faint tnum">
         <span>
@@ -159,8 +161,8 @@ export function Layout({
         <div className="flex min-w-0 items-center gap-3 overflow-hidden border-b border-line px-4 py-4">
           <LogoMark size={40} />
           <div className="min-w-0 flex-1">
-            <div className="truncate font-mono text-[15px] font-bold tracking-tight text-navy">CivilGenius</div>
-            <div className="truncate text-[10.5px] text-faint">نسخه ۲۲ — مهندسی عمران هوشمند</div>
+            <div className="truncate font-mono text-[15px] font-bold tracking-tight text-navy">{APP_NAME}</div>
+            <div className="truncate text-[10.5px] text-faint">{APP_VERSION_FA} — مهندسی عمران هوشمند</div>
           </div>
         </div>
         <nav className="flex-1 space-y-1 overflow-y-auto p-3">
@@ -196,8 +198,8 @@ export function Layout({
         <div className="flex items-center gap-2.5">
           <LogoMark size={34} />
           <div>
-            <div className="font-mono text-[13px] font-bold text-navy">CivilGenius</div>
-            <div className="text-[10px] text-faint">نسخه ۲۲</div>
+            <div className="font-mono text-[13px] font-bold text-navy">{APP_NAME}</div>
+            <div className="text-[10px] text-faint">{APP_VERSION_FA}</div>
           </div>
         </div>
         <Chip tone="green" className="gap-1.5">
@@ -219,7 +221,7 @@ export function Layout({
             <button
               key={tab.key}
               onClick={() => (tab.sheet ? setMenuOpen((v) => !v) : go(tab.routes[0]))}
-              className={`relative flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium transition ${active ? 'text-emerald' : 'text-faint'}`}
+              className={`relative flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium transition ${active ? 'text-emerald-deep' : 'text-faint'}`}
             >
               {active ? <span className="absolute top-0 h-0.5 w-8 rounded-full bg-emerald" /> : null}
               {tab.icon}
@@ -236,7 +238,7 @@ export function Layout({
             <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-line-2" />
             <div className="mb-2 text-[12px] font-bold text-ink">ماژول‌های طراحی</div>
             <div className="grid grid-cols-3 gap-2">
-              {NAV.filter((n) => ['foundation', 'beam', 'column', 'slab', 'wall', 'staircase', 'ramp', 'joint'].includes(n.route)).map((item) => (
+              {NAV.filter((n) => ['foundation', 'beam', 'column', 'slab', 'shear-wall', 'staircase', 'ramp', 'joint'].includes(n.route)).map((item) => (
                 <button
                   key={item.route}
                   onClick={() => go(item.route)}

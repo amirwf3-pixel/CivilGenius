@@ -1,0 +1,29 @@
+{
+  "A1.roundtrip-listed": "PASS",
+  "A1.roundtrip-8-inputs": "PASS",
+  "A2.export-parse": "PASS",
+  "A3.legacy-backfill": "PASS",
+  "A3.legacy-multiplier-merge": "PASS",
+  "A4a.missing-core-rejected": "PASS",
+  "A4b.non-object-rejected": "PASS",
+  "A4c.bad-slot-defaulted": "PASS",
+  "A4d.parse-throws-fa": "PASS",
+  "U1.management-routed": "PASS",
+  "U2.mobile-8-modules": "PASS",
+  "U3.hero-version": "PASS",
+  "U3.hero-module-count-8": "PASS",
+  "U5.no-live-price-claim": "PASS",
+  "U5.no-3-module-claim": "PASS",
+  "B0.sample-button": "PASS",
+  "B1.computed": "PASS",
+  "B1.not-stale-initially": "PASS",
+  "B2.field-found": "PASS",
+  "B3.stale-chip-visible": "PASS",
+  "B3.stale-banner-visible": "PASS",
+  "B4.stale-cleared-after-recompute": "PASS",
+  "C1.restores-8-with-override": "PASS",
+  "summary": {
+    "pass": 23,
+    "fail": 0
+  }
+}
