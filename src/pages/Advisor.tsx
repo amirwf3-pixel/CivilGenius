@@ -258,7 +258,7 @@ export function AdvisorPage() {
         <button
           onClick={() => setMode('local')}
           className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-[11.5px] font-bold transition ${
-            mode === 'local' ? 'bg-emerald text-white shadow-sm' : 'text-muted hover:text-ink'
+            mode === 'local' ? 'bg-emerald-deep text-white shadow-sm' : 'text-muted hover:text-ink'
           }`}
         >
           <BookOpen size={14} />

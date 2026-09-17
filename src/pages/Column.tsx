@@ -95,7 +95,7 @@ export function ColumnPage() {
                       store.setInput('column', ni);
                       void run('column', ni, (r) => store.setResult('column', r));
                     }}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-emerald px-3 py-2 text-[11px] font-bold text-white transition hover:bg-forest"
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-deep px-3 py-2 text-[11px] font-bold text-white transition hover:bg-forest"
                   >
                     <Wand2 size={13} />
                     پیشنهاد خودکار ابعاد ایمن

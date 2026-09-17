@@ -79,7 +79,7 @@ export function CalcBook({ result, onAutoFix }: { result: CalcResult; onAutoFix?
               {c.status !== 'ok' && c.autofix && onAutoFix ? (
                 <button
                   onClick={() => onAutoFix(c.autofix!)}
-                  className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-emerald px-2.5 py-1.5 text-[10.5px] font-bold text-white transition hover:bg-forest"
+                  className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-emerald-deep px-2.5 py-1.5 text-[10.5px] font-bold text-white transition hover:bg-forest"
                 >
                   <Wand2 size={12} />
                   اعمال پیشنهاد هوشمند

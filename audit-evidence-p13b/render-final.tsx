@@ -1,0 +1,44 @@
+import { JSDOM } from 'jsdom';
+import { writeFileSync } from 'node:fs';
+process.on('unhandledRejection', () => undefined);
+const dom = new JSDOM('<!doctype html><html><body><div id="root"></div></body></html>', { url: 'http://localhost/#/dashboard', pretendToBeVisual: true });
+const g = globalThis as Record<string, unknown>;
+g.window = dom.window; g.document = dom.window.document;
+Object.defineProperty(globalThis, 'navigator', { value: dom.window.navigator, configurable: true });
+g.HTMLElement = dom.window.HTMLElement; g.localStorage = dom.window.localStorage; g.MouseEvent = dom.window.MouseEvent;
+(dom.window.Element.prototype as unknown as { scrollTo: unknown }).scrollTo = function () {};
+(dom.window as unknown as { scrollTo: unknown }).scrollTo = function () {};
+const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+const txt = (el: Element | null): string => ((el?.textContent ?? '') as string).replace(/\s+/g, ' ').trim();
+const out: Record<string, unknown> = {};
+let pass = 0, fail = 0;
+const check = (n: string, c: boolean, e = '') => { out[n] = c ? 'PASS' : `FAIL ${e}`; if (c) pass += 1; else fail += 1; };
+void (async () => {
+  const { createElement: h } = await import('react');
+  const { createRoot } = await import('react-dom/client');
+  const App = (await import('../src/App')).default;
+  const host = dom.window.document.getElementById('root')!;
+  createRoot(host).render(h(App));
+  await sleep(1400);
+  const routes = ['dashboard','market','foundation','beam','column','slab','shear-wall','staircase','ramp','joint','report-generator','management','advisor'];
+  for (const r of routes) {
+    dom.window.location.hash = `#/${r}`;
+    dom.window.dispatchEvent(new dom.window.Event('hashchange'));
+    await sleep(350);
+    check(`route.${r}`, Boolean(host.querySelector('h1')) && txt(host.querySelector('h1')).length > 1, 'no h1');
+  }
+  dom.window.location.hash = '#/dashboard';
+  dom.window.dispatchEvent(new dom.window.Event('hashchange'));
+  await sleep(300);
+  check('sidebar.nav-items-13', host.querySelectorAll('aside nav button').length === 13, String(host.querySelectorAll('aside nav button').length));
+  check('sidebar.has-management', [...host.querySelectorAll('aside nav button')].some((a) => txt(a).includes('اتاق فرمان')));
+  const body = txt(host);
+  check('copy.honest-8module', body.includes('هشت المان سازه‌ای'));
+  check('copy.last-query', body.includes('آخرین استعلام قیمت بازار'));
+  check('hero.no-img', !host.querySelector('section img[src*="hero"]'));
+  check('hero.bp-grid', Boolean(host.querySelector('section .bp-grid-dark')));
+  out['summary'] = { pass, fail };
+  writeFileSync('/home/user/civilgeniuss/audit-evidence-p13b/render-final.json', JSON.stringify(out, null, 2));
+  console.log(`RENDER FINAL: ${pass} PASS / ${fail} FAIL`);
+  process.exit(fail ? 1 : 0);
+})().catch((e) => { console.error('ERR', e); process.exit(1); });

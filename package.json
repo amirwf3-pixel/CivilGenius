@@ -1,10 +1,9 @@
-
 {
   "name": "civilgenius",
   "private": true,
-  "version": "20.0.0",
+  "version": "24.0.0",
   "type": "module",
-  "description": "CivilGenius v20 — RTL Persian civil-engineering design, live market prices, BOQ and document delivery center",
+  "description": "CivilGenius v24 — engineering-focused portfolio prototype: RTL Persian structural design (8 modules), calculation trace, BBS/BOQ, Word/Excel/DXF delivery, market pricing with source-status labels",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build",
@@ -39,4 +38,3 @@
     "vite-plugin-singlefile": "^2.3.3"
   }
 }
-

@@ -160,9 +160,16 @@ export function ProjectsPanel(): ReactNode {
   const doLoad = (p: ProjectFile): void => {
     store.setProjectName(p.name);
     store.setClient(p.client);
+    // Wave-2: restore all 8 module inputs verbatim — no recalculation here;
+    // any stale results are flagged by the stale indicator instead.
     store.setInput('foundation', { ...p.inputs.foundation });
     store.setInput('beam', { ...p.inputs.beam });
     store.setInput('column', { ...p.inputs.column });
+    store.setInput('slab', { ...p.inputs.slab });
+    store.setInput('wall', { ...p.inputs.wall });
+    store.setInput('stair', { ...p.inputs.stair });
+    store.setInput('ramp', { ...p.inputs.ramp });
+    store.setInput('joint', { ...p.inputs.joint });
     store.setMultipliers({ ...p.multipliers });
     store.pushToast(`پروژه «${p.name}» بارگذاری شد`, 'ok');
   };

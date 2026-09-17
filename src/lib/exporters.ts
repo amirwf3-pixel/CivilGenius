@@ -51,8 +51,10 @@ export const XLSX_MIME = 'application/vnd.openxmlformats-officedocument.spreadsh
 export const DOCX_MIME = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
 export const DXF_MIME = 'application/dxf';
 
-export const APP_NAME = 'CivilGenius';
-export const APP_VERSION = 'v24';
+// Phase 12: single source of truth lives in ./version — re-exported here so
+// every Word/Excel/document surface stays in lockstep with the UI version.
+import { APP_NAME, APP_VERSION } from './version';
+export { APP_NAME, APP_VERSION };
 
 /* --------------------------------------------------------------- payload -- */
 

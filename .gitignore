@@ -1,0 +1,35 @@
+# Dependencies — install via `npm install` (see README)
+node_modules/
+
+# Build output (single-file bundle is produced by `npm run build`)
+dist/
+build/
+
+# TypeScript incremental build artifacts
+*.tsbuildinfo
+
+# Vite cache
+.vite/
+
+# Stray generated documents (audit evidence under audit-evidence-*/ stays
+# committable — it documents engineering provenance)
+*.dxf
+*.xlsx
+*.docx
+
+# Local environment
+.env
+.env.*
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp

@@ -23,6 +23,8 @@ import { StairPage } from './pages/Stair';
 import { RampPage } from './pages/Ramp';
 import { JointPage } from './pages/Joint';
 import { ReportHubPage } from './pages/ReportHub';
+import { ManagementPage } from './pages/Management';
+import { APP_NAME, APP_VERSION } from './lib/version';
 
 const VALID = NAV.map((n) => n.route);
 
@@ -38,7 +40,7 @@ function Splash() {
         <div className="splash-ring" />
         <div className="text-center">
           <div className="font-mono text-lg font-bold tracking-tight">
-            CivilGenius <span className="text-gold">v22</span>
+            {APP_NAME} <span className="text-gold">{APP_VERSION}</span>
           </div>
           <p className="mt-1 text-[11.5px] text-white/60">در حال بارگذاری موتور محاسبات و قیمت‌های بازار…</p>
         </div>
@@ -155,6 +157,8 @@ export default function App() {
         return <JointPage />;
       case 'report-generator':
         return <ReportHubPage />;
+      case 'management':
+        return <ManagementPage />;
       case 'advisor':
         return <AdvisorPage />;
       default:

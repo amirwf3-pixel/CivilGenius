@@ -6,8 +6,8 @@
 
 import { type ReactNode } from 'react';
 import { Activity, CircleCheck, CircleX, RotateCcw, TriangleAlert, Wand2 } from 'lucide-react';
-import type { CalcResult } from '../lib/engine';
-import { COMPUTE_STAGES, useStore, type StageState } from '../lib/store';
+import type { AnyInput, CalcResult } from '../lib/engine';
+import { COMPUTE_STAGES, isResultStale, useStore, type StageState } from '../lib/store';
 import { market } from '../lib/market';
 import { faNum } from '../lib/format';
 import { BOQ } from './BOQ';
@@ -24,7 +24,7 @@ function ComputeButton({ stage, onCompute, onReset }: { stage: StageState; onCom
         <button
           onClick={onCompute}
           disabled={stage.busy}
-          className="group relative inline-flex min-w-[210px] flex-1 items-center justify-center gap-2.5 overflow-hidden rounded-xl bg-emerald px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald/25 transition-all hover:bg-forest active:scale-[0.98] disabled:cursor-wait disabled:opacity-90 sm:flex-none"
+          className="group relative inline-flex min-w-[210px] flex-1 items-center justify-center gap-2.5 overflow-hidden rounded-xl bg-emerald-deep px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-emerald-deep/25 transition-all hover:bg-forest active:scale-[0.98] disabled:cursor-wait disabled:opacity-90 sm:flex-none"
         >
           {stage.busy ? (
             <>
@@ -94,6 +94,8 @@ export function ModuleShell({
   /* v24: universal pass guarantee — every failing check (including warn) must have autofix; smart optimizer iterates until all green */
   const failingChecks = result ? result.checks.filter((c) => c.status !== 'ok') : [];
   const smartCount = failingChecks.length;
+  // Phase 12 Wave-2: stale when the result's input snapshot differs from current inputs
+  const stale = result ? isResultStale(result, (store.inputs as Record<string, AnyInput>)[result.type]) : false;
   const mergedFix: Record<string, number> = result
     ? result.checks.reduce<Record<string, number>>((acc, c) => (c.status !== 'ok' && c.autofix ? { ...acc, ...c.autofix } : acc), {})
     : {};
@@ -148,6 +150,12 @@ export function ModuleShell({
           ) : null}
           <Chip tone="neutral">{store.projectName || 'پروژه بدون نام'}</Chip>
           {result ? <Chip tone="green">کد سند: {result.code}</Chip> : <Chip tone="neutral">محاسبه‌نشده — آماده</Chip>}
+          {result && stale ? (
+            <Chip tone="warn" className="gap-1.5">
+              <TriangleAlert size={12} />
+              نتیجه قدیمی — ورودی‌ها تغییر کرده
+            </Chip>
+          ) : null}
         </div>
       </header>
 
@@ -192,6 +200,15 @@ export function ModuleShell({
             </div>
           ) : (
             <>
+              {stale ? (
+                <div className="rise flex items-center gap-2.5 rounded-2xl border border-[#fde68a] bg-warn-soft px-4 py-3 text-[12.5px] leading-6 text-warn">
+                  <TriangleAlert size={15} className="shrink-0" />
+                  <p>
+                    <span className="font-bold">نتیجه قدیمی:</span> ورودی‌ها پس از این محاسبه تغییر کرده‌اند — برای به‌روزرسانی
+                    نتیجه و اسناد، دوباره «محاسبه و صدور اسناد» را اجرا کنید.
+                  </p>
+                </div>
+              ) : null}
               <div
                 className={`rise flex flex-wrap items-start justify-between gap-3 rounded-2xl border p-4 ${
                   result.verdict.ok ? 'border-mint bg-emerald-soft' : 'border-[#fecdca] bg-bad-soft'

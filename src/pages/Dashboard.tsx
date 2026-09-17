@@ -12,6 +12,7 @@ import { buildSampleProject, useStore } from '../lib/store';
 import { NAV } from '../components/Layout';
 import { Sparkline, TrendBadge } from '../components/XYChart';
 import { Button, Card, Chip, LiveDot, SectionHead } from '../components/ui';
+import { APP_NAME, APP_VERSION, APP_VERSION_FA } from '../lib/version';
 import { ProjectsPanel } from './Management';
 
 const MODULE_META: Record<CalcType, { icon: typeof Ruler; gradient: string }> = {
@@ -48,29 +49,24 @@ export function DashboardPage({ navigate }: { navigate: (r: string) => void }) {
     <div className="mx-auto w-full max-w-7xl space-y-5">
       {/* hero */}
       <section className="rise relative overflow-hidden rounded-3xl border border-white/10 bg-navy text-white">
-        <img
-          src="images/hero.jpg"
-          alt=""
-          className="absolute inset-0 size-full object-cover opacity-35"
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).style.display = 'none';
-          }}
-        />
+        {/* hero visual: CSS blueprint grid (self-contained, no external asset).
+            The previous photographic hero asset was not recoverable after the
+            workspace reset, so it was removed in favour of this clean fallback. */}
         <div className="absolute inset-0 bg-gradient-to-l from-navy via-navy/85 to-navy/45" />
         <div className="bp-grid-dark absolute inset-0 opacity-60" />
         <div className="relative grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.4fr_1fr]">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-3 py-1.5 text-[11px] text-white/80">
               <LiveDot />
-              نسخه ۲۲ — قیمت روز بازار + موتور محاسبات مهندسی
+              {APP_VERSION_FA} — موتور محاسبات مهندسی + استعلام قیمت بازار
             </span>
             <h1 className="mt-4 text-2xl font-bold leading-snug sm:text-3xl">
-              CivilGenius
-              <span className="mr-2 font-mono text-gold">v22</span>
+              {APP_NAME}
+              <span className="mr-2 font-mono text-gold">{APP_VERSION}</span>
             </h1>
             <p className="mt-2 max-w-xl text-[13px] leading-7 text-white/75">
-              طراحی پی، تیر و ستون بر پایه مقررات ملی ساختمان، متره و برآورد با قیمت روز بازار فولاد از آهن‌آنلاین، و صدور سه سند
-              قابل ویرایش (Excel، Word، DXF) و مدیریت چند پروژه.
+              طراحی هشت المان سازه‌ای (پی، تیر، ستون، سقف، دیوار برشی، راه‌پله، رمپ و چشمه اتصال) بر پایه مقررات ملی ساختمان،
+              متره و برآورد با آخرین استعلام موفق قیمت بازار فولاد، و صدور سه سند قابل ویرایش (Excel، Word، DXF) و مدیریت چند پروژه.
             </p>
             <div className="mt-5 flex flex-wrap gap-2.5">
               <Button variant="green" size="lg" icon={<FolderInput size={17} />} onClick={loadSample}>
@@ -88,7 +84,7 @@ export function DashboardPage({ navigate }: { navigate: (r: string) => void }) {
             </div>
             <div className="mt-6 grid max-w-lg grid-cols-3 gap-3">
               {[
-                ['ماژول مهندسی', '۳'],
+                ['ماژول مهندسی', faNum(Object.keys(CALC_META).length, 0)],
                 ['قلم مصالح', faNum(market.materials.length, 0)],
                 ['قیمت به‌روز', faNum(cov.live, 0)],
               ].map(([label, value]) => (
@@ -103,7 +99,7 @@ export function DashboardPage({ navigate }: { navigate: (r: string) => void }) {
             <div className="mb-2 flex items-center justify-between">
               <h2 className="flex items-center gap-2 text-[13px] font-bold">
                 <TrendingUp size={15} className="text-gold" />
-                قیمت لحظه‌ای
+                آخرین استعلام قیمت بازار
               </h2>
               <span className="text-[10.5px] text-white/55">{jalaliDate()}</span>
             </div>
